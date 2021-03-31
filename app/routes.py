@@ -8,3 +8,10 @@ def index():
     greeting = 'Hello Dunia!'
 
     return render_template('index.html', title='Hello', greeting=greeting)
+
+@app.route('/compress')
+def compress():
+
+    compress = 'halaman compress'
+
+    return render_template('compress.html',title='compressing', compress=compress)
