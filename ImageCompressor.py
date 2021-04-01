@@ -54,6 +54,6 @@ blue_channel_compressed_image = Compressor.compressor(blue_scaled_image, blue_co
 
 bit_stream = ByteStreamGenerator.byte_stream(red_channel_compressed_image, green_channel_compressed_image, blue_channel_compressed_image, red_coded_pixels['seperator'], green_coded_pixels['seperator'])
 
-# print('Compression Ratio :', (len(bit_stream)/(red)))
-with open('bit_stream.txt', 'w') as fp:
+print('Compression Ratio :',(len(bit_stream) / (red_scaled_image.shape[0]*red_scaled_image.shape[1]*3*8)))
+with open('ImageCompressed.txt', 'w') as fp:
     fp.write(bit_stream)
