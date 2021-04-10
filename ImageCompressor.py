@@ -5,7 +5,7 @@ import json
 
 from functions import HistorgramGenerator, HuffmanCoding, Compressor, ByteStreamGenerator
 
-original_image = cv2.imread('mona88.jpg')
+original_image = cv2.imread('image.jpg')
 original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)
 image_height = original_image.shape[0]
 image_width = original_image.shape[1]

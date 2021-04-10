@@ -2,19 +2,42 @@
 
 {% block app_content %}
 
-    <h1 class="text-center mb-5">{{compress}}</h1>
-
-    <div class="row">
-        <div class="col-6">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="formFile">
-                <label for="formFile" class="custom-file-label">Masukkan Gambar</label>
-            </div>
+<main id="main">
+    <section>
+        <div class="container">
+            <h1 style="margin-top: 70px; text-align: center;">Hello compress</h1>
+            for
+            <!-- <select class="image-picker show-html">
+                <option value=""></option>
+                <option data-img-src="{{url_for('static', filename='img/test/test1.jpg')}}" value="1">test 1</option>
+                <option data-img-src="{{url_for('static', filename='img/test/test2.jpg')}}" value="2">test 2</option>
+                <option data-img-src="{{url_for('static', filename='img/test/test3.jpg')}}" value="3">test 3</option>
+                <option data-img-src="{{url_for('static', filename='img/test/test4.jpg')}}" value="4">test 4</option>
+                <option data-img-src="{{url_for('static', filename='img/test/test5.jpg')}}" value="5">test 5</option>
+                <option data-img-src="{{url_for('static', filename='img/test/test6.jpg')}}" value="6">test 6</option>
+            </select> -->
+            <!-- <div class="row">
+                <div class="col">
+                    <img src="{{url_for('static',filename='img/test/test1.jpg')}}" alt="">
+                </div>
+                <div class="col">
+                    <img src="{{url_for('static', filename='img/test/test2.jpg')}}" alt="">
+                </div>
+                <div class="col">
+                    <img src="{{url_for('static', filename='img/test/test3.jpg')}}" alt="">
+                </div>
+                <div class="col">
+                    <img src="{{url_for('static', filename='img/test/test4.jpg')}}" alt="">
+                </div>
+                <div class="col">
+                    <img src="{{url_for('static', filename='img/test/test5.jpg')}}" alt="">
+                </div>
+                <div class="col">
+                    <img src="{{url_for('static', filename='img/test/test6.jpg')}}" alt="">
+                </div>
+            </div> -->
 
         </div>
-        <div class="col-6">
-
-        </div>
-    </div>
-
+    </section>
+</main>
 {% endblock %}

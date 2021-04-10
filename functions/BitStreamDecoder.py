@@ -37,7 +37,7 @@ def codeSearch(smallBitStream, searchDict, slicingIndex):
         return code
     
 def bitStreamDecode():
-    fileToBeDecoded = cv2.imread('mona88.jpg')
+    fileToBeDecoded = cv2.imread('image.jpg')
     fileToBeDecoded = cv2.cvtColor(fileToBeDecoded, cv2.COLOR_BGR2RGB)
 
     fileX, fileY, fileZ = fileToBeDecoded.shape
@@ -48,5 +48,5 @@ def bitStreamDecode():
         for x in range(fileX):
             for y in range(fileZ):
                 decodeStream.append(fileToBeDecoded[x][y][z])
-                
+
     return decodeStream

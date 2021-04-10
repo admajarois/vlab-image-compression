@@ -14,5 +14,6 @@ with open('ImageCompressed.txt', 'r') as fr:
 
 pixelStream = BitStreamDecoder.decoder(bit_stream, redChannelDecoder, greenChannelDecoder, blueChannelDecoder)
 
+
 with open('ImageDecompressed.txt', 'w') as fr:
     fr.write(str(pixelStream))

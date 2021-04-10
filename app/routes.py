@@ -1,5 +1,6 @@
 from app import app
-from flask import render_template
+from flask import render_template, redirect, request, url_for
+from werkzeug.utils import secure_filename
 
 @app.route('/')
 @app.route('/index')
@@ -15,3 +16,7 @@ def compress():
     compress = 'halaman compress'
 
     return render_template('compress.html',title='compressing', compress=compress)
+
+
+
+
