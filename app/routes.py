@@ -10,6 +10,16 @@ def index():
 
     return render_template('index.html', title='Hello', greeting=greeting)
 
+@app.route('/materi')
+def materi():
+
+    return render_template('materi.html', materi=materi)
+
+@app.route('/eksperimen')
+def eksperimen():
+
+    return render_template('eksperimen.html', eksperimen=eksperimen)
+
 @app.route('/compress')
 def compress():
 
@@ -17,6 +27,11 @@ def compress():
 
     return render_template('compress.html',title='compressing', compress=compress)
 
-
+@app.route('/compress', methods=['POST'])
+def upload_image():
+    uploaded_image = request.files['file']
+    if uploaded_image.filename != '':
+        uploaded_image.save(uploaded_image.filename)
+    return redirect(url_for('compress'))
 
 
