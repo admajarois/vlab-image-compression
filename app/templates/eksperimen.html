@@ -2,4 +2,46 @@
 
 {% block app_content %}
 
+<div class="card shadow mt-4">
+    <div class="card-header">
+        <h1 class="font-weight-bold text-center">Aplikasi Kompresi Citra Dengan Metode Huffman</h1>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+    <div class="column">
+        <img src="{{url_for('static', filename='img/Image300x200.jpg')}}" style="width: 100%;" alt=""
+        onclick="showImageBellow(this);">
+    </div>
+    <div class="column">
+        <img src="{{url_for('static', filename='img/stones.jpg')}}" style="width: 100%;" alt=""
+        onclick="showImageBellow(this);">
+    </div>
+    <div class="column">
+        <img src="{{url_for('static', filename='img/bw.jpg')}}" style="width: 100%;" alt=""
+        onclick="showImageBellow(this);">
+    </div>
+    <div class="column">
+        <img src="{{url_for('static', filename='img/waterfall300x200.jpg')}}" style="width: 100%;" alt=""
+        onclick="showImageBellow(this);">
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <img id="expandedImg" src="{{url_for('static', filename='img/default-image.jpg')}}" style="width:100%;">
+        <a href="" class="btn btn-primary mt-2">COMPRESS</a>
+    </div>
+    <div class="col-lg-6">
+        <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+        <ul>
+            <li>Rasio kompresi : 000%</li>
+            <li><a href="#">Tabel frekuensi</a></li>
+            <li><a href="#">Pohon huffman</a></li>
+        </ul>
+        <button class="btn btn-primary mt-2">DECOMPRESS</button>
+    </div>
+</div>
+
+    </div>
+</div>
 {% endblock %}

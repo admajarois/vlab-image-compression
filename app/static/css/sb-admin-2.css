@@ -100,6 +100,7 @@ abbr[data-original-title] {
   text-decoration-skip-ink: none;
 }
 
+
 address {
   margin-bottom: 1rem;
   font-style: normal;
@@ -616,6 +617,30 @@ pre code {
   width: 100%;
   padding-right: 0.75rem;
   padding-left: 0.75rem;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+.column img {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.column img:hover {
+  cursor: 1;
+}
+
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
 }
 
 .col {
@@ -9873,9 +9898,16 @@ a:focus {
   background-size: cover;
 }
 
+/* Custom  */
+
+.bg-indigo {
+  background-color: #6610f2;
+  background-size: cover;
+}
+
 .bg-gradient-jumbotron {
   background-color: #6610f2;
-  background-image: linear-gradient(180deg, #6610f2 10%, #803cee 100%);
+  background-image: linear-gradient(225deg, #6610f2 10%, #ba9ceb 100%);
   background-size: cover;
 }
 
@@ -11264,17 +11296,4 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
-}
-
-
-/* Custom  */
-
-.bg-indigo {
-  background-color: #6610f2;
-}
-
-.bg-gradient-jumbotron {
-  background-color: #6610f2;
-  background-image: linear-gradient(90deg, #6610f2 10%, #a175e9 100%);
-  background-size: cover;
 }
