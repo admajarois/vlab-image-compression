@@ -27,9 +27,15 @@
     </div>
 </div>
 <div class="row">
+    <!-- <form action="">
+        <div class="form-group">
+            <input type="file" name="inputImage" id="inputImage" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form> -->
     <div class="col-lg-6">
         <img id="expandedImg" src="{{url_for('static', filename='img/default-image.jpg')}}" style="width:100%;">
-        <a href="" class="btn btn-primary mt-2">COMPRESS</a>
+        <a href="{{url_for('proses')}}" class="btn btn-primary mt-2">COMPRESS</a>
     </div>
     <div class="col-lg-6">
         <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
@@ -39,6 +45,17 @@
             <li><a href="#">Pohon huffman</a></li>
         </ul>
         <button class="btn btn-primary mt-2">DECOMPRESS</button>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-lg-6">
+        <h5 class="text-center">Setelah Decompressi</h5>
+        <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+        <button class="btn btn-primary mt-2">Restore</button>
+    </div>
+    <div class="col-lg-6">
+        <h5 class="text-center">Hasil Restorasi</h5>
+        <img src="{{url_for('static', filename='img/default-image.jpg')}}" style="width:100%;">
     </div>
 </div>
 
