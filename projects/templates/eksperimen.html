@@ -26,6 +26,22 @@
         onclick="showImageBellow(this);">
     </div>
 </div>
+<form action="{{url_for('upload_image')}}" method="POST" enctype="multipart/form-data" class="dropzone mb-2">
+    <!-- <div class="fallback">
+        <input type="file" name="image" id="file">
+    </div> -->
+    <!-- <div class="input-group mb-3">
+        <div class="custom-file">
+            <input type="file" name="image" id="validatedCustomFile" class="custom-file-input" required>
+            <label for="validatedCustomFile" class="custom-file-label">Masukkan gambar sendiri</label>
+            <div class="invalid-feedback">Belum ada file</div>
+        </div>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-primary">UPLOAD</button>
+        </div>
+    </div> -->
+</form>
+
 <div class="row">
     <!-- <form action="">
         <div class="form-group">
@@ -34,28 +50,34 @@
         <button type="submit" class="btn btn-primary">Upload</button>
     </form> -->
     <div class="col-lg-6">
-        <img id="expandedImg" src="{{url_for('static', filename='img/default-image.jpg')}}" style="width:100%;">
-        <a href="{{url_for('proses')}}" class="btn btn-primary mt-2">COMPRESS</a>
+        <img id="expandedImg" src="{{url_for('static', filename='default-image.jpg')}}" style="width:100%;">
+        <a href="" class="btn btn-primary mt-2">COMPRESS</a>
     </div>
     <div class="col-lg-6">
-        <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
-        <ul>
+        <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+        <h6 class="mt-2">Rasio kompresi: 000%</h6>
+        <!-- <ul>
             <li>Rasio kompresi : 000%</li>
             <li><a href="#">Tabel frekuensi</a></li>
             <li><a href="#">Pohon huffman</a></li>
-        </ul>
+        </ul> -->
         <button class="btn btn-primary mt-2">DECOMPRESS</button>
     </div>
 </div>
 <div class="row mt-3">
     <div class="col-lg-6">
         <h5 class="text-center">Setelah Decompressi</h5>
-        <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+        <textarea name="" id="" cols="30" rows="14" class="form-control"></textarea>
         <button class="btn btn-primary mt-2">Restore</button>
     </div>
     <div class="col-lg-6">
         <h5 class="text-center">Hasil Restorasi</h5>
         <img src="{{url_for('static', filename='img/default-image.jpg')}}" style="width:100%;">
+        <ul class="mt-3">
+            <li><h6>Jumlah pixel yang hilang: 00</h6></li>
+            <li><h6>Resolusi gambar original: 00x00</h6></li>
+            <li><h6>Resolusi hasil restorasi: 00x00</h6></li>
+        </ul>
     </div>
 </div>
 

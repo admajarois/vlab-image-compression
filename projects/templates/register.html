@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="{{url_for('static', filename='css/sb-admin-2.css')}}">
 
-    <title>{% block title %} {{greeting}}{% endblock %}-VLAB Image Compression</title>
+    <title>{% block title %} {{title}}{% endblock %}-VLAB Image Compression</title>
 </head>
 <body class="bg-gradient-primary">
 
@@ -28,42 +28,57 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Silahkan {% block greeting %} {{greeting}}{% endblock %}</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="POST">
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                                <input type="text" class="form-control form-control-user" id="exampleFirstName" name="NIM"
                                                 placeholder="NIM">
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                                <input type="text" class="form-control form-control-user" id="exampleLastName" name="nama"
                                                 placeholder="Nama">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="exampleInputEmail"
+                                            <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="prodi"
                                                 placeholder="Prodi">
                                         </div>
+                                        <input type="hidden" name="role" value="MHS">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" name="email"
                                                 placeholder="Email">
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="password" class="form-control form-control-user"
+                                                <input type="password" class="form-control form-control-user" name="password"
                                                 id="exampleInputPassword" placeholder="Password">
                                             </div>
                                         <div class="col-sm-6">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" class="form-control form-control-user" name="confirm-password"
                                                 id="exampleRepeatPassword" placeholder="Repeat Password">
                                         </div>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Daftar
-                                    </a>
+                                    </button>
                                 </form>
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages  %}
+                                        {% if category == 'error'%}
+                                        <div role="alert" class="alert alert-danger alert-dismissable fade show mt-2">
+                                            {{message}}
+                                            <button type="button" class="close" data-dismiss="alert" >
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        {%endif%}
+                                    {% endfor %}
+                                {%endif%}
+                                {% endwith %}
                                 <hr>
                             <div class="text-center">
-                                <a class="small" href="{{url_for('login')}}">Sudah punya akun? Silahkan login!</a>
+                                <a class="small" href="/login">Sudah punya akun? Silahkan login!</a>
                             </div>
                         </div>
                     </div>

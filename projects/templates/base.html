@@ -15,6 +15,7 @@
     
 
     <link rel="stylesheet" href="{{url_for('static', filename='css/sb-admin-2.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dropzone.css')}}">
 
     <title>{% block title %} {{title}}{% endblock %}-VLAB Image Compression</title>
 </head>
@@ -25,11 +26,9 @@
     {% endblock %}
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                <button id="sidebarToggleTop" class="btn btn-primary btn-circle d-md-none">
-                    <i class="fas fa-bars">
-                
-                    </i>
-                </button>
+                {% block navbar %}
+                    {% include 'layouts/_navbar.html' %}
+                {% endblock %}
                 <div class="container-fluid">
                     {% block content %}
                         {% block app_content %}{% endblock %}
@@ -45,10 +44,31 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Siap untuk pergi?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Pilih "Logout" jika ingin keluar dari sesi ini.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/dropzone.js')}}"></script>
     <script>
         function showImageBellow(imgs) {
             var expandImg = document.getElementById("expandedImg");

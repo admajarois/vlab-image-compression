@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import json
 
-from app import functions
+from projects import functions
 
 def image_compression(image):
     original_image = cv2.imread(image)
@@ -52,7 +52,7 @@ def image_compression(image):
     green_channel_compressed_image = functions.image_compressor.compressor(green_scale_image, green_coded_pixels)
     blue_channel_compressed_image = functions.image_compressor.compressor(blue_scale_image, blue_coded_pixels)
 
-    bit_stream = byte_stream_generator.byte_stream(red_channel_compressed_image, green_channel_compressed_image, blue_channel_compressed_image, red_coded_pixels['seperator'], green_coded_pixels['seperator'])
+    bit_stream = function.byte_stream_generator.byte_stream(red_channel_compressed_image, green_channel_compressed_image, blue_channel_compressed_image, red_coded_pixels['seperator'], green_coded_pixels['seperator'])
 
     print('Compression ratio:', (len(bit_stream)/(red_scale_image.shape[0]*red_scale_image.shape[1]*3*8)))
 
