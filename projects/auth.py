@@ -1,4 +1,3 @@
-from re import T
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.datastructures import ViewItems
 from projects.models import Users
@@ -67,7 +66,7 @@ def register():
             return redirect(url_for('views.loginPage'))
             
 
-    return render_template('register.html', greeting=greeting)
+    return render_template('register.html', title=greeting)
 
 @auth.route('/logout')
 @login_required

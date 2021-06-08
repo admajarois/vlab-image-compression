@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+<div class="card">
+    <div class="card-header"><a href=""><i class="fas fa-plus"></i><span>Tambah user</span></a></div>
+    <div class="card-body">
+    <div class="table-responsive">
+       <table class="table" id="dataTable">
+           <thead>
+               <tr>
+                   <th>ID</th>
+                   <th>NIM/NIP</th>
+                   <th>Nama</th>
+                   <th>Prodi</th>
+                   <th>Email</th>
+                   <th>Password</th>
+                   <th>Aksi</th>
+               </tr>
+           </thead>
+           <tbody>
+               {% for user in data_user %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.NIM}}</td>
+                        <td>{{user.nama}}</td>
+                        <td>{{user.prodi}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{'*********' if user.password else 'None'}}</td>
+                        <td>
+                            <a href="#" class="btn btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+               {% endfor %}
+           </tbody>
+       </table>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
