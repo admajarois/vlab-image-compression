@@ -10,4 +10,5 @@ class Users(db.Model, UserMixin):
     prodi = db.Column(db.String(50))
     role = db.Column(db.String(3))
     email = db.Column(db.String(50), unique=True)
-    password = db.Column(db.String(60))
+    password = db.Column(db.String(256))
+    image_profile = db.Column(db.String(50))

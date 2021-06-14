@@ -1,4 +1,5 @@
 from flask_login import login_user, login_required, logout_user, current_user
+from sqlalchemy.sql.expression import null
 from werkzeug.datastructures import ViewItems
 from projects.models import Users
 from projects import db
@@ -58,7 +59,7 @@ def register():
         elif len(password) < 8:
             flash('Password harus lebih dari 8 karakter')
         else:
-            new_user = Users(NIM=nim, nama=nama, prodi=prodi,role=role, email=email, password=generate_password_hash(password, method='sha256'))
+            new_user = Users(NIM=nim, nama=nama, prodi=prodi,role=role, email=email, password=generate_password_hash(password, method='sha256'), image_profile=null)
             db.session.add(new_user)
             db.session.commit()
             login_user(user, remember=True)

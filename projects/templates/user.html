@@ -27,7 +27,7 @@
                         <td>{{user.email}}</td>
                         <td>{{'*********' if user.password else 'None'}}</td>
                         <td>
-                            <a href="#" class="btn btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                            <a href="/delete_user/{{user.NIM}}" class="btn btn-circle btn-danger"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                {% endfor %}

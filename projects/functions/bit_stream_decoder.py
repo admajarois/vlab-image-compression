@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 
-def decoder (bit_stream, red_stream_decoder, green_stream_decoder, blue_stream_decoder):
-    code_stream = bit_stream_decode()
+def decoder (image, bit_stream, red_stream_decoder, green_stream_decoder, blue_stream_decoder):
+    code_stream = bit_stream_decode(image)
     if code_stream == []:
         while code_search(bit_stream, red_stream_decoder, 5) != 'seperator':
             code = code_search(bit_stream, red_stream_decoder, 5)
@@ -36,8 +36,8 @@ def code_search (small_bit_stream, search_dict, slicing_index):
     else:
         return code
 
-def bit_stream_decode ():
-    file_to_be_decoded = cv2.imread('images/contoh.jpg')
+def bit_stream_decode (image):
+    file_to_be_decoded = cv2.imread(image)
     file_to_be_decoded = cv2.cvtColor(file_to_be_decoded, cv2.COLOR_BGR2RGB)
     
     file_x, file_y, file_z = file_to_be_decoded.shape
