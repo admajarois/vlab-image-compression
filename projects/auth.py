@@ -62,7 +62,6 @@ def register():
             new_user = Users(NIM=nim, nama=nama, prodi=prodi,role=role, email=email, password=generate_password_hash(password, method='sha256'), image_profile=null)
             db.session.add(new_user)
             db.session.commit()
-            login_user(user, remember=True)
             flash('Akun berhasil ditambahkan!', category='success')
             return redirect(url_for('views.loginPage'))
             

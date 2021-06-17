@@ -24,8 +24,8 @@ def index():
 @views.route('/materi')
 @login_required
 def materi():
-
-    return render_template('materi.html', materi=materi, user=current_user)
+    title = "Materi"
+    return render_template('materi.html', materi=materi,title=title, user=current_user)
 
 @views.route('/pendahuluan')
 @login_required
@@ -50,6 +50,7 @@ def profile(NIM):
         user.email = email
         user.password = generate_password_hash(password, method='sha256')
         db.session.commit()
+        flash('Data berhasil diubah!', category='success')
         return redirect(request.url)
     return render_template('profile.html', user=current_user, title=title)
 
