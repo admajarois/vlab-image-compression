@@ -8,10 +8,12 @@ from .functions import histogram_generator, huffman_coding, image_compressor, by
 
 def image_compression(image):
     img = cv2.imread(image)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-    blue = img[:,:,0]
+    red = img[:,:,0]
     green = img[:,:,1]
-    red = img[:,:,2]
+    blue = img[:,:,2]
+    
 
     blue_histogram = histogram_generator.histogram_array_generator(blue)
     green_histogram = histogram_generator.histogram_array_generator(green)

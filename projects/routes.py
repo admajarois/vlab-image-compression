@@ -1,14 +1,9 @@
 from werkzeug.security import generate_password_hash
-import projects
 from projects.models import Users
-from flask.helpers import flash, send_from_directory
-import os
+from flask.helpers import flash
 from flask_login import login_required, current_user
 from projects import db
-import imghdr
 from flask import Blueprint, render_template, redirect, request, url_for
-from werkzeug.utils import secure_filename
-from projects import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, image_compression
 
 
 views = Blueprint('views', __name__)

@@ -11,15 +11,14 @@ def restorer(image):
     pixel_stream = pixel_stream.replace(']', '')
     pixel_stream = pixel_stream.split(', ')
     pixel_stream = [int(pixel) for pixel in pixel_stream]
-
     red_channel_pixel_stream = pixel_stream[:int(len(pixel_stream)/3)]
     green_channel_pixel_stream = pixel_stream[int(len(pixel_stream)/3):int((2*len(pixel_stream))/3)]
     blue_channel_pixel_stream = pixel_stream[int((2*len(pixel_stream))/3):int(len(pixel_stream))]
 
-    original_image =cv2.imread(image)
+    original_image = cv2.imread(image)
     original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)
-
-    red_channel_image = np.reshape(red_channel_pixel_stream, (original_image.shape[0], original_image[1]))
+    
+    red_channel_image = np.reshape(red_channel_pixel_stream, (original_image.shape[0], original_image.shape[1]))
     green_channel_image = np.reshape(green_channel_pixel_stream, (original_image.shape[0], original_image.shape[1]))
     blue_channel_image = np.reshape(blue_channel_pixel_stream, (original_image.shape[0], original_image.shape[1]))
 

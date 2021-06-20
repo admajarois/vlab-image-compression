@@ -29,32 +29,14 @@ def eksperimen():
             app = os.path.join(UPLOAD_FOLDER, filename)
             compress = image_compression.image_compression(app)
             decompress = image_decompression.image_decompression(app)
-            restorer = image_restorer.channel_restorer(app)
+            restorer = image_restorer.restorer(app)
             # print(compress)
          
             bit_stream, ratio, redudance = compress
             pixel_stream = decompress
             total_loss, original_image_dimension, restore_image_dimension = restorer
-            # return redirect(url_for('vlab.eksperimen'))
+        
             return render_template('eksperimen.html',filename=filename, title="Program kompresi", app=app, bit=bit_stream, ratio=ratio, 
             pixel=pixel_stream, user=current_user,redudance=redudance, total_loss=total_loss, original_image_dimension=original_image_dimension, restore_image_dimension=restore_image_dimension)
             
     return render_template('eksperimen.html',title="Program Kompresi", user=current_user)
-
-
-
-# @views.route('/eksperimen', methods=['GET', 'POST'])
-# @login_required
-# def eksperimen():
-#     if request.method == 'POST':
-#         if 'image' not in request.files:
-#             flash('Tidak ada file')
-#             return redirect(request.url)
-#         file = request.files['image']
-
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             file.save(os.path.join(UPLOAD_FOLDER, filename))
-            
-#             return redirect(url_for('views.eksperimen', name=filename))
-#     return render_template('eksperimen.html',title="Program Kompresi", user=current_user)
