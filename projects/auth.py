@@ -1,7 +1,8 @@
 from flask_login import login_user, login_required, logout_user, current_user
+from flask_login.utils import decode_cookie
 from sqlalchemy.sql.expression import null
-from werkzeug.datastructures import ViewItems
 from projects.models import Users
+from projects.functions import delete_dir
 from projects import db
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -71,5 +72,6 @@ def register():
 @auth.route('/logout')
 @login_required
 def logout():
+    delete_dir.delete_dir()
     logout_user()
     return redirect(url_for('views.index'))

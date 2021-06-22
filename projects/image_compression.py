@@ -1,6 +1,9 @@
+import os
 import cv2
 import numpy as np
 import json
+from flask_login import current_user
+
 
 from numpy.lib import math
 
@@ -33,22 +36,31 @@ def image_compression(image):
 
     blue_huffman = huffman_coding.Huffman_Coding(blue_probability)
     blue_coded_pixels, blue_reverse_coded_pixels = blue_huffman.compress()
+    
+    codes = os.path.join("projects/codes", current_user.NIM)
+    decodes = os.path.join("projects/decodes", current_user.NIM)
+    result = os.path.join("projects/results", current_user.NIM)
 
     # encode
-    with open('projects/codes/red_channel_codes.json', 'w') as fp:
+    if os.path.exists(codes) == False:
+        os.mkdir(codes)
+
+    with open(codes+'/red_channel_codes.json', 'w') as fp:
         json.dump(red_coded_pixels, fp)
-    with open('projects/codes/green_channel_codes.json', 'w') as fp:
+    with open(codes+'/green_channel_codes.json', 'w') as fp:
         json.dump(green_coded_pixels, fp)
-    with open('projects/codes/blue_channel_codes.json', 'w') as fp:
+    with open(codes+'/blue_channel_codes.json', 'w') as fp:
         json.dump(blue_coded_pixels, fp)
 
     # decode
+    if os.path.exists(decodes) == False:
+        os.mkdir(decodes)
 
-    with open('projects/decodes/red_channel_decodes.json', 'w') as fp:
+    with open(decodes+'/red_channel_decodes.json', 'w') as fp:
         json.dump(red_reverse_coded_pixels,fp)
-    with open('projects/decodes/green_channel_decodes.json', 'w') as fp:
+    with open(decodes+'/green_channel_decodes.json', 'w') as fp:
         json.dump(green_reverse_coded_pixels,fp)
-    with open('projects/decodes/blue_channel_decodes.json', 'w') as fp:
+    with open(decodes+'/blue_channel_decodes.json', 'w') as fp:
         json.dump(blue_reverse_coded_pixels,fp)
 
     red_compressed = image_compressor.compressor(red, red_coded_pixels)
@@ -61,7 +73,10 @@ def image_compression(image):
     compression_rasio = (img.size-len(bit_stream)/img.size)*100/100
     redudance = math.sqrt(1/img.shape[0]*img.shape[1]*(len(bit_stream)-img.size)**2)
 
-    with open('./projects/bit_stream.txt', 'w') as fp:
+    if os.path.exists(result) == False:
+        os.mkdir(result)
+    
+    with open(result+'/bit_stream.txt', 'w') as fp:
         fp.write(bit_stream)
 
     return bit_stream, compression_rasio, redudance

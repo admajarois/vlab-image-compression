@@ -1,10 +1,13 @@
 import cv2
 import numpy as np
+import os
+from flask_login import current_user
 
 from projects.functions import channel_restorer
 
 def restorer(image):
-    with open('projects/image_pixel_stream.txt', 'r') as fr:
+    result = os.path.join("projects/results", current_user.NIM)
+    with open(result+'/image_pixel_stream.txt', 'r') as fr:
         pixel_stream = fr.read()
 
     pixel_stream = pixel_stream.replace('[', '')
