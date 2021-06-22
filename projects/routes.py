@@ -1,8 +1,12 @@
+import os
+from sqlalchemy.sql.expression import null
 from werkzeug.security import generate_password_hash
-from projects.models import Users
+from werkzeug.utils import secure_filename
+from projects.models import Users, Assignment
 from flask.helpers import flash
 from flask_login import login_required, current_user
-from projects import db
+from datetime import datetime
+from projects import UPLOAD_FOLDER, db
 from flask import Blueprint, render_template, redirect, request, url_for
 
 
@@ -64,14 +68,28 @@ def delete_user(NIM):
     db.session.commit()
     return redirect(url_for('views.users'))
 
-# @views.route('/update_user', methods=['POST'])
-# @login_required
-# def update():
-    
-#     return redirect(url_for('views.profile'))
-
 @views.route('/datagambar')
 @login_required
 def gambar():
     title = "Data Gamabar"
     return render_template('datagambar.html', title=title, user=current_user)
+
+@views.route('/penugasan', methods=['POST', 'GET'])
+@login_required
+def penugasan():
+    title ="Assignment"
+    if request.method == 'POST':
+        uploaded_file = request.files['tugas']
+        filename = secure_filename(uploaded_file.filename)
+        if filename != ' ':
+            uploaded_file.save(os.path.join(UPLOAD_FOLDER+'/assignment', filename))
+            date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            upload_file = Assignment(id_user=current_user.id, file_name=filename, date=date, status=null)
+            db.session.add(upload_file)
+            db.session.commit()
+            flash('Tugas berhasil diupload!', category='success')
+            return redirect(url_for('views.penugasan'))
+        else:
+            flash('Tidak ada file untuk diupload')
+            return redirect(url_for('views.penugasan'))
+    return render_template('assignment.html', title=title, user=current_user)

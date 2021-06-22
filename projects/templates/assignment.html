@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="card shadow">
+        <div class="card-header">
+            <h1 class="text-center">Penugasan</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="{{url_for('static', filename='img/lisa8x8.jpg')}}" class="img-thumbnail" style="width:100%;" alt="mona lisa image">
+                </div>
+                <div class="col-lg-6">
+
+                </div>
+            </div>
+            <div class="mt-3">
+                <h5 class="text-justify">Buatlah sebuah program untuk melakukan kompresi citra dengan metode Huffman, lalu arsipkan program dalam bentuk zip
+                    dan kumpulkan pada form dibawah!
+                </h5>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" name="tugas" id="image" onchange="preview()">
+                          <label class="custom-file-label" for="image" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

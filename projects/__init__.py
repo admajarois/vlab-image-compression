@@ -8,12 +8,14 @@ db = SQLAlchemy()
 DB_NAME = "virtual_lab"
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), './static/uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'gif'}
+MAX_CONTENT_LENGTH = 2*1000*1000
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'jhjhjdshjshdj'
+    app.config['SECRET_KEY'] = 'dattebayo'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root@localhost/{DB_NAME}'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
     db.init_app(app)
 
   
