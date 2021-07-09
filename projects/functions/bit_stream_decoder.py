@@ -29,6 +29,19 @@ def decoder (image, bit_stream, red_stream_decoder, green_stream_decoder, blue_s
 
     return code_stream
 
+def gray_decoder(image, bit_stream, gray_decoder):
+    gray_code_stream = bit_stream_decode(image)
+    if gray_code_stream == []:
+        while code_search(bit_stream, gray_decoder, 5) != 'seperator':
+            code = code_search(bit_stream, gray_decoder, 5)
+            gray_code_stream.append(gray_decoder[code])
+            bit_stream = bit_stream.replace(code, '', 1)
+
+        code = code_search(bit_stream, gray_decoder, 5)
+        bit_stream = bit_stream.replace(code, '', 1)
+        print('Gray, done!')
+    return gray_code_stream
+
 def code_search (small_bit_stream, search_dict, slicing_index):
     code = small_bit_stream[:slicing_index]
     if search_dict.get(code, None) == None:

@@ -10,35 +10,12 @@
     </a>
 
     {% if user.is_authenticated %}
-        {% if user.role == "ADM" %}
                <!-- Nav Item - Dashboard -->
         <li class="nav-item">
             <a class="nav-link" href="/index">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
-        <li class="nav-item">
-            <a href="/datausers" class="nav-link">
-                <i class="fas fa-fw fa-user"></i>
-                <span>Data users</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/datagambar" class="nav-link">
-                <i class="fas fa-fw fa-image"></i>
-                <span>Data gambar</span>
-            </a>
-        </li>
-
-        {% elif user.role == "MHS" %}
-         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="/index">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-
-   
     
     <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
@@ -70,10 +47,6 @@
                 <span>Penugasan</span>
             </a>
         </li>
-
-        {% else %}
-      
-        {% endif %}
 
     {% else %}
             <!-- Nav Item - Dashboard -->

@@ -1,0 +1,13 @@
+.table-warapper {
+    max-height: 400px;
+    overflow:  auto;
+    display: inline-block;
+}
+
+@media screen and (min-width:1050px){
+    .table-warapper {
+        max-height: 450px;
+        overflow:  auto;
+        display: inline-block;
+    }
+}

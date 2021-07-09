@@ -1,5 +1,6 @@
 import os
 import shutil
+from projects import UPLOAD_FOLDER
 from flask_login import current_user
 
 def delete_dir():
@@ -14,3 +15,9 @@ def delete_dir():
     
     if os.path.exists(result) == True:
         shutil.rmtree(result)
+    
+def del_user_dir():
+    user_dir = UPLOAD_FOLDER+'/'+current_user.NIM
+
+    if os.path.exists(user_dir) == True:
+        shutil.rmtree(user_dir)

@@ -10,13 +10,10 @@
     <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
-
-    <link rel="stylesheet" href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}">
     
 
     <link rel="stylesheet" href="{{url_for('static', filename='css/sb-admin-2.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/dropzone.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/basic.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
 
 
     <title>{% block title %} {{title}}{% endblock %}-VLAB Image Compression</title>
@@ -37,6 +34,13 @@
                         {% for category, message in messages  %}
                             {% if category == 'success' %}
                             <div role="alert" class="alert alert-success alert-dismissable fade show mt-2">
+                                {{message}}
+                                <button type="button" class="close" data-dismiss="alert" >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% else %}
+                            <div role="alert" class="alert alert-danger alert-dismissable fade show mt-2">
                                 {{message}}
                                 <button type="button" class="close" data-dismiss="alert" >
                                     <span aria-hidden="true">&times;</span>
@@ -85,28 +89,7 @@
     <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/dropzone.js')}}"></script>
-    <script>
-        function showImageBellow(imgs) {
-            var expandImg = document.getElementById("expandedImg");
-            expandImg.src = imgs.src;
-            expandImg.parentElement.style.display = "block";
-        }
-
-        const preview = ()=>{
-            const image = document.querySelector('#image')
-            const label = document.querySelector('.custom-file-label')
-            const imgPreview = document.querySelector('.img-preview')
-
-            label.textContent = image.files[0].name;
-
-            const fileImg = new FileReader();
-            fileImg.readAsDataURL(image.files[0]);
-
-            fileImg.onload=(e)=>{
-                imgPreview.src = e.target.result;
-            }
-        }
-    </script>
+    <script src="{{url_for('static', filename='js/custom-scripts.js')}}"></script>
 
 </body>
 </html>

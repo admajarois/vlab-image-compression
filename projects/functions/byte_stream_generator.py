@@ -18,3 +18,10 @@ def byte_stream (red_stream_image, green_stream_image, blue_stream_image, red_se
             byte_stream += str(blue_stream_image[stream_row_index][stream_column_index])
 
     return byte_stream
+
+def gray_byte_stream(gray_stream_image):
+    byte_gray_stream = ""
+    for stream_row_index in range(len(gray_stream_image)):
+        for stream_column_index in range(len(gray_stream_image[0])):
+            byte_gray_stream += str(gray_stream_image[stream_row_index][stream_column_index])
+    return byte_gray_stream

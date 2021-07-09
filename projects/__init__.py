@@ -1,4 +1,5 @@
 from flask import Flask
+import flask_login
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from os.path import join, dirname, realpath
@@ -14,6 +15,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'dattebayo'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root@localhost/{DB_NAME}'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
     db.init_app(app)

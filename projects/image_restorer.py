@@ -14,10 +14,13 @@ def restorer(image):
     pixel_stream = pixel_stream.replace(']', '')
     pixel_stream = pixel_stream.split(', ')
     pixel_stream = [int(pixel) for pixel in pixel_stream]
+ 
     red_channel_pixel_stream = pixel_stream[:int(len(pixel_stream)/3)]
     green_channel_pixel_stream = pixel_stream[int(len(pixel_stream)/3):int((2*len(pixel_stream))/3)]
     blue_channel_pixel_stream = pixel_stream[int((2*len(pixel_stream))/3):int(len(pixel_stream))]
 
+    print(red_channel_pixel_stream)
+    
     original_image = cv2.imread(image)
     original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)
     
@@ -35,6 +38,24 @@ def restorer(image):
     restore_image_dimension = np.array(restored_image).shape
 
     return total_loss, original_image_dimension, restore_image_dimension
+
+def gray_restorer(image):
+    result = os.path.join("projects/results", current_user.NIM)
+    with open(result+'/gray_image_pixel_stream.txt', 'r') as fr:
+        gray_pixel_stream = fr.read()
+    # gray_pixel_stream = gray_pixel_stream.replace('[', '')
+    # gray_pixel_stream = gray_pixel_stream.replace(']', '')
+    # gray_pixel_stream = gray_pixel_stream.split(', ')
+    # gray_pixel_stream = [int(pixel) for pixel in gray_pixel_stream]
+    original_image = cv2.imread(image)
+    original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
+    # image_reshape = np.reshape(gray_pixel_stream, (original_image[0], original_image[1], 3))
+    # result_image = cv2.imwrite('./image_restore_gray.jpg', image_reshape)
+  
+    # print(new_image)
+
+    
+
 
 
 # image = './uploads/stones.jpg'

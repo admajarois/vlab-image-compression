@@ -1,0 +1,108 @@
+<div class="mt-2">
+    <form method="POST" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <label for="image" class="custom-file-label">Masukkan gambar.....</label>
+                <input type="file" name="image" id="image" class="custom-file-input" onchange="preview()">
+            </div>
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">PROCESS</button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-lg-6">
+            {% if filename %}
+            <img src="{{url_for('static', filename='uploads/'+user.NIM+'/'+filename)}}" class="img-thumbnail img-preview" style="width:100%;">
+            {% else %}
+            <img src="{{url_for('static', filename='img/default-image.jpg')}}" class="img-thumbnail img-preview" style="width:100%;">
+            {% endif %}
+        </div>
+        <div class="col-lg-6">
+            {% if filename %}
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>Nama</td>
+                            <td>:</td>
+                            <td>{{filename}}</td>
+                        </tr>
+                        <tr>
+                            <td>Lebar gambar</td>
+                            <td>:</td>
+                            <td>{{original_image_dimension[0]}} pixel</td>
+                        </tr>
+                        <tr>
+                            <td>Tinggi gambar</td>
+                            <td>:</td>
+                            <td>{{original_image_dimension[1]}} pixel</td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah channel </td>
+                            <td>:</td>
+                            <td>{{original_image_dimension[2]}}</td>
+                        </tr>
+                        <tr>
+                            <td>Rasio Kompresi</td>
+                            <td>:</td>
+                            <td>{{ratio}} %</td>
+                        </tr>
+                        <tr>
+                            <td>Relative Redudance</td>
+                            <td>:</td>
+                            <td>{{redudance}} %</td>
+                        </tr>
+                        <tr>
+                            <td>RMSE</td>
+                            <td>:</td>
+                            <td>{{rmse}}</td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah data yang hilang setelah kompresi</td>
+                            <td>:</td>
+                            <td>{{total_loss}}</td>
+                        </tr>
+                        <tr>
+                            <td>Waktu proses</td>
+                            <td>:</td>
+                            <td>{{times}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <h4>Step percobaan:</h4>
+            <ol>
+                <li><h5>Klik Browse untuk memilih gambar yang ingin di kompresi</h5></li>
+                <li><h5>Disarankan menggunakan gambar dengan resolusi maksimal 1200 X 800</h5></li>
+                <li><h5>Klik proses untuk melakukan proses kompresi</h5></li>
+            </ol>
+            {% endif %}
+        </div>
+    </div>   
+    <div class="row">
+        <div class="col mt-3">
+            <h3 class="center mt-2">Huffman Coding</h3>
+            <p>Berikut ini merupakan hasil konpresi dari huffman coding</p>
+            <textarea name="bit" id="bit" disabled cols="30" rows="10" class="form-control">{{bit}}</textarea>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-6">
+            <h5 class="text-center">Hasil Decoding</h5>
+            <p>Setekah huffman code diatas dilakukan decode maka kode diatas akan kembali ke nilai sebelumnya</p>
+            <textarea disabled name="" id="" cols="30" rows="14" class="form-control">{{ pixel }}</textarea>
+        <!-- <button class="btn btn-primary mt-2">Restore</button> -->
+        </div>
+        <div class="col-lg-6">
+            <h5 class="text-center">Hasil Restorasi</h5>
+            <p>Lalu gambar akan direstorasi dan dilakukan pengecekan apakah terdapat data yang hilang saat gambar dilakukan kompresi</p>
+            {% if filename %}
+            <img id="expandedImg" src="{{url_for('static', filename='uploads/'+user.NIM+'/'+filename)}}" class="img-thumbnail img-preview" style="width:100%;">
+            {% else %}
+            <img id="expandedImg" src="{{url_for('static', filename='img/default-image.jpg')}}" class="img-thumbnail img-preview" style="width:100%;">
+            {% endif %}
+        </div>
+    </div>
+</div>

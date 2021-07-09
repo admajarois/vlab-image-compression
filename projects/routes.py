@@ -2,7 +2,7 @@ import os
 from sqlalchemy.sql.expression import null
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
-from projects.models import Users, Assignment
+from projects.models import Role, Users, Assignment
 from flask.helpers import flash
 from flask_login import login_required, current_user
 from datetime import datetime
@@ -15,7 +15,6 @@ views = Blueprint('views', __name__)
 @views.route('/')
 @views.route('/index')
 def index():
-
     greeting = 'Hello Dunia!'
 
     return render_template('index.html', title='Home', greeting=greeting, user=current_user)

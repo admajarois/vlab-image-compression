@@ -5,9 +5,10 @@ import json
 from flask_login import current_user
 
 
-from numpy.lib import math
+from numpy.lib import imag, math
 
 from .functions import histogram_generator, huffman_coding, image_compressor, byte_stream_generator
+
 
 def image_compression(image):
     img = cv2.imread(image)
@@ -36,10 +37,11 @@ def image_compression(image):
 
     blue_huffman = huffman_coding.Huffman_Coding(blue_probability)
     blue_coded_pixels, blue_reverse_coded_pixels = blue_huffman.compress()
-    
+
     codes = os.path.join("projects/codes", current_user.NIM)
     decodes = os.path.join("projects/decodes", current_user.NIM)
     result = os.path.join("projects/results", current_user.NIM)
+    
 
     # encode
     if os.path.exists(codes) == False:
@@ -70,8 +72,9 @@ def image_compression(image):
     bit_stream = byte_stream_generator.byte_stream(red_compressed, green_compressed, blue_compressed, red_coded_pixels['seperator'], green_coded_pixels['seperator'])
     
     
-    compression_rasio = (img.size-len(bit_stream)/img.size)*100/100
-    redudance = math.sqrt(1/img.shape[0]*img.shape[1]*(len(bit_stream)-img.size)**2)
+    compression_rasio = round((100/100-(len(bit_stream)/(img.shape[0]*img.shape[1]*img.shape[2]*8))*100/100)*100, 2)
+    relative_redundance = round((1 - (1/compression_rasio))*100, 2)
+    rmse = math.sqrt(1/img.shape[0]*img.shape[1]*(len(bit_stream)-img.size)**2)
 
     if os.path.exists(result) == False:
         os.mkdir(result)
@@ -79,4 +82,46 @@ def image_compression(image):
     with open(result+'/bit_stream.txt', 'w') as fp:
         fp.write(bit_stream)
 
-    return bit_stream, compression_rasio, redudance
+    return bit_stream, compression_rasio, rmse, relative_redundance
+
+def grayscale_compression(image):
+    img_gray = cv2.imread(image)
+    img_gray = cv2.cvtColor(img_gray, cv2.COLOR_BGR2GRAY)
+    
+    gray_probability = pixel_number_calculate(img_gray)
+    gray_probability['seperator'] = 0
+
+    compress_gray_pixel = huffman_coding.Huffman_Coding(gray_probability)
+    gray_coded_pixel, gray_reversed_coded = compress_gray_pixel.compress()
+    result = os.path.join("projects/results", current_user.NIM)
+    gray_compressed_image = image_compressor.compressor(img_gray, gray_coded_pixel)
+    gray_bit_stream = byte_stream_generator.gray_byte_stream(gray_compressed_image)
+
+    print("Berhasil mengkompresi")
+
+    compression_ratio = (100/100-(len(gray_bit_stream)/(img_gray.shape[0]*img_gray.shape[1]*8))*100/100)*100
+
+    if os.path.exists(result) == False:
+        os.mkdir(result)
+    
+    with open(result+'/grayscale_bit_stream.txt', 'w') as fp:
+        fp.write(gray_bit_stream)
+    
+    return gray_bit_stream, compression_ratio, gray_reversed_coded, gray_coded_pixel
+
+
+
+def pixel_number_calculate(image):
+    list = []
+    for i in range(image.shape[0]):
+        for j in range(image.shape[1]):
+            list.append(image[i,j])
+
+    pixel_number = {}
+    for i in list:
+        if i not in pixel_number.keys():
+            pixel_number[i] = 1
+        else:
+            pixel_number[i] += 1
+    return pixel_number
+    

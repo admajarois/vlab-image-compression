@@ -40,8 +40,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="prodi"
-                                                placeholder="Prodi">
+                                            <select name="kelas" id="kelas" class="form-control">
+                                                <option value="">--pilih kelas anda--</option>
+                                                {% for kelas in daftar_kelas %}
+                                                    <option value="{{kelas.kelas}}">{{kelas.kelas}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <!-- <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="kelas"
+                                                placeholder="Prodi"> -->
                                         </div>
                                         <input type="hidden" name="role" value="MHS">
                                         <div class="form-group">
