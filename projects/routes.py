@@ -2,7 +2,7 @@ import os
 from sqlalchemy.sql.expression import null
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
-from projects.models import Role, Users, Assignment
+from projects.models import Content, Role, Users, Assignment
 from flask.helpers import flash
 from flask_login import login_required, current_user
 from datetime import datetime
@@ -77,6 +77,7 @@ def gambar():
 @login_required
 def penugasan():
     title ="Assignment"
+    content = Content.query.filter_by(id_kategori=5).first()
     if request.method == 'POST':
         uploaded_file = request.files['tugas']
         filename = secure_filename(uploaded_file.filename)
@@ -91,4 +92,4 @@ def penugasan():
         else:
             flash('Tidak ada file untuk diupload')
             return redirect(url_for('views.penugasan'))
-    return render_template('assignment.html', title=title, user=current_user)
+    return render_template('assignment.html', title=title, user=current_user, content = content)

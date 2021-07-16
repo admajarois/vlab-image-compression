@@ -87,41 +87,25 @@ def image_compression(image):
 def grayscale_compression(image):
     img_gray = cv2.imread(image)
     img_gray = cv2.cvtColor(img_gray, cv2.COLOR_BGR2GRAY)
+    list = []
+    for i in range(img_gray.shape[0]):
+        for j in range(img_gray.shape[1]):
+            list.append(img_gray[i,j])
     
-    gray_probability = pixel_number_calculate(img_gray)
-    gray_probability['seperator'] = 0
+    gray_array = histogram_generator.pixel_frequency(list)
 
-    compress_gray_pixel = huffman_coding.Huffman_Coding(gray_probability)
-    gray_coded_pixel, gray_reversed_coded = compress_gray_pixel.compress()
-    result = os.path.join("projects/results", current_user.NIM)
-    gray_compressed_image = image_compressor.compressor(img_gray, gray_coded_pixel)
-    gray_bit_stream = byte_stream_generator.gray_byte_stream(gray_compressed_image)
+    gray_probability = histogram_generator.pixel_probability(gray_array, img_gray.shape[0]*img_gray.shape[1])
 
-    print("Berhasil mengkompresi")
-
+    gray_huffman = huffman_coding.Huffman_Coding(gray_probability)
+    gray_codes, gray_reverse = gray_huffman.compress()
+    gray_image_compressor = image_compressor.compressor(img_gray, gray_codes)
+    gray_bit_stream = byte_stream_generator.gray_byte_stream(gray_image_compressor)
     compression_ratio = (100/100-(len(gray_bit_stream)/(img_gray.shape[0]*img_gray.shape[1]*8))*100/100)*100
-
+    result = os.path.join("projects/results", current_user.NIM)
     if os.path.exists(result) == False:
         os.mkdir(result)
     
     with open(result+'/grayscale_bit_stream.txt', 'w') as fp:
         fp.write(gray_bit_stream)
     
-    return gray_bit_stream, compression_ratio, gray_reversed_coded, gray_coded_pixel
-
-
-
-def pixel_number_calculate(image):
-    list = []
-    for i in range(image.shape[0]):
-        for j in range(image.shape[1]):
-            list.append(image[i,j])
-
-    pixel_number = {}
-    for i in list:
-        if i not in pixel_number.keys():
-            pixel_number[i] = 1
-        else:
-            pixel_number[i] += 1
-    return pixel_number
-    
+    return gray_bit_stream, compression_ratio, gray_reverse, gray_codes

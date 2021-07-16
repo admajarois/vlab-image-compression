@@ -30,7 +30,7 @@ def decoder (image, bit_stream, red_stream_decoder, green_stream_decoder, blue_s
     return code_stream
 
 def gray_decoder(image, bit_stream, gray_decoder):
-    gray_code_stream = bit_stream_decode(image)
+    gray_code_stream = gray_bit_stream_decode(image)
     if gray_code_stream == []:
         while code_search(bit_stream, gray_decoder, 5) != 'seperator':
             code = code_search(bit_stream, gray_decoder, 5)
@@ -63,3 +63,18 @@ def bit_stream_decode (image):
                 decoded_stream.append(file_to_be_decoded[x][y][z])
     
     return decoded_stream
+
+def gray_bit_stream_decode(image):
+    gray_to_be_decoded = cv2.imread(image)
+    gray_to_be_decoded = cv2.cvtColor(gray_to_be_decoded, cv2.COLOR_BGR2GRAY)
+
+    file_x, file_y = gray_to_be_decoded.shape
+    file_size = file_x*file_y
+
+    gray_decode_stream = []
+
+    for x in range(file_x):
+        for y in range(file_y):
+            gray_decode_stream.append(gray_to_be_decoded[x][y])
+    
+    return gray_decode_stream

@@ -8,17 +8,17 @@
     <div class="card-body">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a href="#nav-example" class="nav-link" id="nav-example-tab" data-toggle="tab" role="tab" aria-controls="nav-example" aria-selected="true">Contoh experimen</a>
-                <a href="#nav-experiment" class="nav-link" id="nav-experiment-tab" data-toggle="tab" role="tab" aria-controls="nav-experiment" aria-selected="false">Eksperimen</a>
+                <a href="#nav-example" class="nav-link" id="nav-example-tab" data-toggle="tab" role="tab" aria-controls="nav-example" aria-selected="false">Contoh experimen</a>
+                <a href="#nav-experiment" class="nav-link" id="nav-experiment-tab" data-toggle="tab" role="tab" aria-controls="nav-experiment" aria-selected="true">Eksperimen</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-example" role="tabpanel" aria-labelledby="nav-example-tab">
+            <div class="tab-pane fade " id="nav-example" role="tabpanel" aria-labelledby="nav-example-tab">
                 {% block step %}
                     {% include 'experiment_example.html' %}
                 {% endblock %}
             </div>
-            <div class="tab-pane fade" id="nav-experiment" role="tabpanel" aria-labelledby="nav-experiment-tab">
+            <div class="tab-pane fade show active" id="nav-experiment" role="tabpanel" aria-labelledby="nav-experiment-tab">
                 {% block example %}
                     {% include 'experiment_rgb.html' %}
                 {% endblock %}

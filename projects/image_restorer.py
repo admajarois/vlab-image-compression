@@ -18,8 +18,6 @@ def restorer(image):
     red_channel_pixel_stream = pixel_stream[:int(len(pixel_stream)/3)]
     green_channel_pixel_stream = pixel_stream[int(len(pixel_stream)/3):int((2*len(pixel_stream))/3)]
     blue_channel_pixel_stream = pixel_stream[int((2*len(pixel_stream))/3):int(len(pixel_stream))]
-
-    print(red_channel_pixel_stream)
     
     original_image = cv2.imread(image)
     original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)
@@ -43,16 +41,28 @@ def gray_restorer(image):
     result = os.path.join("projects/results", current_user.NIM)
     with open(result+'/gray_image_pixel_stream.txt', 'r') as fr:
         gray_pixel_stream = fr.read()
-    # gray_pixel_stream = gray_pixel_stream.replace('[', '')
-    # gray_pixel_stream = gray_pixel_stream.replace(']', '')
-    # gray_pixel_stream = gray_pixel_stream.split(', ')
-    # gray_pixel_stream = [int(pixel) for pixel in gray_pixel_stream]
+    gray_pixel_stream = gray_pixel_stream.replace('[', '')
+    gray_pixel_stream = gray_pixel_stream.replace(']', '')
+    gray_pixel_stream = gray_pixel_stream.split(', ')
+    gray_pixel_stream = [int(pixel) for pixel in gray_pixel_stream]
+  
     original_image = cv2.imread(image)
     original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
+
+    gray_channel_image = np.reshape(gray_pixel_stream, (original_image.shape[0], original_image.shape[1]))
+
+    print(gray_channel_image)
+
+
+
+    # print(len(gray_pixel_stream))
+
+    # print(merged)
+
+    
     # image_reshape = np.reshape(gray_pixel_stream, (original_image[0], original_image[1], 3))
-    # result_image = cv2.imwrite('./image_restore_gray.jpg', image_reshape)
+    result_image = cv2.imwrite('./image_restore_gray.jpg', gray_channel_image)
   
-    # print(new_image)
 
     
 

@@ -41,7 +41,7 @@
                         <tr>
                             <td>Jumlah channel </td>
                             <td>:</td>
-                            <td>{{original_image_dimension[2]}}</td>
+                            <td>{{original_image_dimension[2]}} (RGB)</td>
                         </tr>
                         <tr>
                             <td>Rasio Kompresi</td>
@@ -66,15 +66,17 @@
                         <tr>
                             <td>Waktu proses</td>
                             <td>:</td>
-                            <td>{{times}}</td>
+                            <td>{{times}} milisecond</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             {% else %}
-            <h4>Step percobaan:</h4>
+            <h4>Aturan percobaan:</h4>
             <ol>
+                <li><h5>File dengan ekstensi png, jpg, jpeg, bmp, gif saja yang dijinkan</h5></li>
                 <li><h5>Klik Browse untuk memilih gambar yang ingin di kompresi</h5></li>
+                <li><h5>Proses ini dilakukan untuk format gambar RGB</h5></li>
                 <li><h5>Disarankan menggunakan gambar dengan resolusi maksimal 1200 X 800</h5></li>
                 <li><h5>Klik proses untuk melakukan proses kompresi</h5></li>
             </ol>
@@ -91,8 +93,8 @@
     <div class="row mt-3">
         <div class="col-lg-6">
             <h5 class="text-center">Hasil Decoding</h5>
-            <p>Setekah huffman code diatas dilakukan decode maka kode diatas akan kembali ke nilai sebelumnya</p>
-            <textarea disabled name="" id="" cols="30" rows="14" class="form-control">{{ pixel }}</textarea>
+            <p>Setelah huffman code diatas dilakukan decode maka kode diatas akan kembali ke nilai sebelumnya</p>
+            <textarea disabled name="" id="" cols="30" rows="20" class="form-control">{{ pixel }}</textarea>
         <!-- <button class="btn btn-primary mt-2">Restore</button> -->
         </div>
         <div class="col-lg-6">

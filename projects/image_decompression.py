@@ -1,5 +1,6 @@
 import json
 import os
+import cv2
 from flask_login import current_user
 from projects.functions import bit_stream_decoder
 
@@ -28,5 +29,7 @@ def gray_decompression(image, gray_bit_stream, gray_decoder):
     gray_pixel_stream = bit_stream_decoder.gray_decoder(image, gray_bit_stream, gray_decoder)
     with open(result+'/gray_image_pixel_stream.txt', 'w') as fr:
         fr.write(str(gray_pixel_stream))
+    
+    print(len(gray_pixel_stream))
 
     return gray_pixel_stream
