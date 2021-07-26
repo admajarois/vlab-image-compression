@@ -16,6 +16,18 @@ class Users(db.Model, UserMixin):
     role = db.relationship('Role')
     kelas = db.relationship('Kelas')
 
+class HistoryCompressi(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    id_user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    nama_gambar = db.Column(db.String(100))
+    tinggi = db.Column(db.Integer)
+    lebar = db.Column(db.Integer)
+    channel = db.Column(db.Integer)
+    rasio_kompresi = db.Column(db.Float)
+    relative_redudancy = db.Column(db.Float)
+    tanggal = db.Column(db.DateTime(timezone=True))
+    users = db.relationship('Users')
+
 class Content(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_admin = db.Column(db.Integer)

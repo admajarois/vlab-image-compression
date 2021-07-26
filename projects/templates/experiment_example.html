@@ -1,39 +1,231 @@
-<h6 class="mt-2">Berikut adalah hasil dari gambar yang sudah dilakukan kompresi</h6>
-<div class="row">
-        <div class="col">
-            <img src="{{url_for('static', filename='uploads/'+images.image)}}" alt="image from database" class="img-thumbnail" width="100%" onclick="showImageBellow(this)">
-        </div>
-        <div class="col-lg-6 overflow-auto">
-            <div class="table-warapper table-responsive">
-                <table class="table">
-                    <thead>
-                        <th>pixel</th>
-                        <th>code</th>
-                    </thead>
-                    <tbody>
-                        {% for key, value in  code_pixel.items()%}
-                            <tr>
-                                <td>{{key}}</td>
-                                <td>{{value}}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+    <p>Berikut merupakan contoh kompresi gambar grayscale 8 bit dengan dimensi 6 x 6 pixel.</p>
+    <div class="card shadow">
+        <div class="row no-gutters">
+            <div class="col">
+                <img src="{{url_for('static', filename='uploads/'+images.image)}}" alt="image from database" class="img-thumbnail" width="100%" onclick="showImageBellow(this)">
             </div>
-            <a href="#" class="btn btn-primary btn-icon-split mb-3">
-                <span class="icon text-white-50">
-                    <i class="fas fa-eye"></i>
-                </span>
-                <span class="text">lihat pohon huffman</span>
-            </a>
+            <div class="col">
+                <div class="card-body">
+                    <h5 class="card-title text-center h4">Contoh Gambar {{image_dimension|replace(',', 'x')}} pixel</h5>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td> <p class="card-text h5">Nama Gambar</p></td>
+                                <td> <p class="card-text h5">:</p></td>
+                                <td> <p class="card-text h5">{{images.image}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="card-text h5">Lebar gambar</p></td>
+                                <td><p class="card-text h5">:</p></td>
+                                <td><p class="card-text h5">{{image_dimension[0]}} pixel</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="card-text h5">Tinggi gambar</p></td>
+                                <td><p class="card-text h5">:</p></td>
+                                <td><p class="card-text h5">{{image_dimension[1]}} pixel</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="card-tetx h5">Tipe Gambar</p></td>
+                                <td><p class="card-tetx h5">: </p></td>
+                                <td><p class="card-tetx h5">Grayscale</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="card-text h5">Rasio Kompresi</p></td>
+                                <td><p class="card-text h5">:</p></td>
+                                <td><p class="card-text h5">{{gray_ratio}} %</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="card-text h5">Relative Redundancy</p></td>
+                                <td><p class="card-text h5">:</p></td>
+                                <td><p class="card-text h5">{{gray_redundance}} %</p></td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
         </div>
-
+    </div>
+<div class="row mt-3 ">
+    <div class="col-lg-4  overflow-auto">
+        <p>Langkah pertama adalah menghitung jumlah frekuensi kemunculan pixel</p>
+        
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="h4">Frekuensi kemunculan pixel</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-warapper table-responsive">
+                    <table class="table">
+                        <thead>
+                            <th>pixel</th>
+                            <th>frekuensi kemunculan</th>
+                        </thead>
+                        <tbody>
+                            {% for key, value in  gray_array.items()%}
+                                <tr>
+                                    <td>{{key}}</td>
+                                    <td>{{value}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col"><p class="text-bold">Total</p></div>
+                    <div class="col">
+                        <p>{{ sum_of_freq }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 overflow-auto">
+            <p>Lalu menghitung probabilitas kemunculan dari pixel tesebut</p>
+        
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="h4">Probabilitas kemunculan pixel</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-warapper table-responsive">
+                    <table class="table">
+                        <thead>
+                            <th>pixel</th>
+                            <th>probabilitas kemunculan</th>
+                        </thead>
+                        <tbody>
+                            {% for key, value in  gray_probability.items()%}
+                                <tr>
+                                    <td>{{key}}</td>
+                                    <td>{{value}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col"><p class="text-bold">Total</p></div>
+                    <div class="col">
+                        <p>{{ sum_of_prob }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 overflow-auto">
+        <p>Setelah itu dilakukan pembentukan pohon huffman sebagai berikut</p>
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="h4">Pohon Huffman</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-warapper table-responsive">
+                    <table class="table">
+                        <thead>
+                            <th>pixel</th>
+                            <th>code</th>
+                        </thead>
+                        <tbody>
+                            {% for key, value in  code_pixel.items()%}
+                                <tr>
+                                    <td>{{key}}</td>
+                                    <td>{{value}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#showHuffmanTree">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                    <span class="text">lihat pohon huffman</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row mt-3">
     <div class="col-lg-6">
-        <textarea class="form-control" name="" id="" cols="30" rows="10">{{gray_bit_stream}}</textarea>
+        <p>Berikut hasil dari pengkodean Huffman</p>
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="h4">Huffman Code</h6>
+            </div>
+            <div class="card-body">
+                <textarea class="form-control" name="" id="" cols="30" rows="10">{{gray_bit_stream}}</textarea>
+            </div>
+        </div>
     </div>
     <div class="col-lg-6">
-        <textarea class="form-control" name="" id="" cols="30" rows="10">{{gray_pixel}}</textarea>
+        <p>Lalu kode Huffman di decode sehingga kembali menjadi nilai pixel semula.</p>
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="h4">Hasil Decode</h6>
+            </div>
+            <div class="card-body">
+                <textarea class="form-control" name="" id="" cols="30" rows="10">{{gray_pixel}}</textarea>
+            </div>
+        </div>
     </div>
 </div>
+    <p>lalu hasil docode direstore dengan perintah imwrite() sehingga gambar kembali terbentuk seperti semula</p> 
+<div class="card shadow mt-2">
+    <div class="row no-gutters">
+        <div class="col">
+            <img src="{{url_for('static', filename='uploads/'+images.image)}}" alt="image from database" class="img-thumbnail" width="100%" onclick="showImageBellow(this)">
+        </div>
+        <div class="col">
+            <div class="card-body">
+                <h5 class="card-title text-center h4">Contoh Hasil Restorasi Gambar {{image_dimension | replace(',', 'x')}} pixel</h5>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td> <p class="card-text h5">Nama Gambar</p></td>
+                            <td> <p class="card-text h5">:</p></td>
+                            <td> <p class="card-text h5">{{images.image}}</p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="card-text h5">Dimensi gambar original</p></td>
+                            <td><p class="card-text h5">:</p></td>
+                            <td><p class="card-text h5">{{image_dimension  |replace(',', 'x')}} pixel</p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="card-text h5">Dimensi gambar restorasi</p></td>
+                            <td><p class="card-text h5">:</p></td>
+                            <td><p class="card-text h5">{{result_image_dimension |replace(',', 'x')}} pixel</p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="card-tetx h5">Total loss</p></td>
+                            <td><p class="card-tetx h5">: </p></td>
+                            <td><p class="card-tetx h5">{{gray_channel_loss}}</p></td>
+                        </tr>
+                    </tbody>
+                </table>                    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="showHuffmanTree" tabindex="-1" role="dialog" aria-labelledby="showHuffmanTree" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Huffman Tree</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <img src="{{url_for('static', filename='img/huffman_tree.jpg')}}" alt="">
+        </div>
+      </div>
+    </div>
+  </div>

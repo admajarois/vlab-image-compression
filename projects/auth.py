@@ -17,8 +17,6 @@ def login():
         nim = request.form.get('nim')
         password = request.form.get('password')
         user = Users.query.filter_by(NIM=nim).first()
-        coba = Users.query.all()
-        print(coba)
         if user:
             if check_password_hash(user.password, password):
                 flash('Login Berhasil', category='success')
@@ -49,16 +47,16 @@ def register():
         user = Users.query.filter_by(NIM=nim).first()
         if user:
             flash('NIM anda sudah terdaftar', category='error')
-        elif len(email) < 4:
-            flash('Email harus lebih dari 4', category='error')
-        elif len(nama) < 2:
-            flash('Nama harus lebih dari 2 karakter', category='error')
         elif nim == '' :
             flash('NIM tidak boleh kosong', category='error')
+        elif len(nama) < 2:
+            flash('Nama harus lebih dari 2 karakter dan tidak boleh kosong', category='error')
+        elif len(email) < 4:
+            flash('Email harus lebih dari 4 dan tidak boleh kosong', category='error')
+        elif len(password) < 8:
+            flash('Password harus lebih dari 8 karakter dan tidak boleh kosong')
         elif password != password2:
             flash('Password tidak sama', category='error')
-        elif len(password) < 8:
-            flash('Password harus lebih dari 8 karakter')
         else:
             role = Role.query.filter_by(role='student').first()
             kelas = Kelas.query.filter_by(kelas=kelas).first()

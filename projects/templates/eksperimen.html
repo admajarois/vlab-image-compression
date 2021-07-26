@@ -6,15 +6,19 @@
         <h1 class="font-weight-bold text-center">Aplikasi Kompresi Citra Dengan Metode Huffman</h1>
     </div>
     <div class="card-body">
+        <p class="text-justify">Berikut terdapat dua bilah tab, tab <a href="#nav-example" id="nav-example-tab" data-toggle="tab" role="tab" aria-controls="nav-example" aria-selected="false">contoh eksperimen</a> merupakan eksperimen default yang sudah terlihat hasilnya,
+            sedangkan untuk tab <a href="#nav-example" id="nav-example-tab" data-toggle="tab" role="tab" aria-controls="nav-example" aria-selected="false">eksperimen</a>
+            adalah eksperimen yang dilakukan oleh mahasiswa dengan inputan gambar dari mahasiswa sendiri.
+        </p>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a href="#nav-example" class="nav-link" id="nav-example-tab" data-toggle="tab" role="tab" aria-controls="nav-example" aria-selected="false">Contoh experimen</a>
-                <a href="#nav-experiment" class="nav-link" id="nav-experiment-tab" data-toggle="tab" role="tab" aria-controls="nav-experiment" aria-selected="true">Eksperimen</a>
+                <a href="#nav-example" class="nav-link" id="nav-example-tab" data-toggle="tab" role="tab" aria-controls="nav-example" aria-selected="false">Eksperimen Grayscale</a>
+                <a href="#nav-experiment" class="nav-link active" id="nav-experiment-tab" data-toggle="tab" role="tab" aria-controls="nav-experiment" aria-selected="true">Eksperimen RGB</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade " id="nav-example" role="tabpanel" aria-labelledby="nav-example-tab">
-                {% block step %}
+                {% block contoh %}
                     {% include 'experiment_example.html' %}
                 {% endblock %}
             </div>

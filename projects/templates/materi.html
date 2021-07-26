@@ -2,23 +2,9 @@
 
 {% block app_content %}
     <div class="card shadow mt-5">
-        <div class="card-header"><h1 class="text-center">Materi</h1></div>
+        <div class="card-header"><h1 class="text-center">{{content.judul}}</h1></div>
         <div class="card-body">
-            <h3>Apa itu kompresi citra?</h3>
-            <p class="text-justify">
-                 Kompresi citra merupakan sebuah teknik untuk meminimalisasi jumlah bit yang merepresentasikan suatu citra sehingga ukuran data citra menjadi lebih kecil.
-                 terdapat dua jenis kompresi yaitu kompresi lossy dan kompresi lossless.
-                 <ul>
-                     <li><h4>Kompresi Lossy</h4></li>
-                     kompresi lossy adalah jenis kompresi yang memperbolehkan kehilangan data
-                     <li><h4>Kompresi Lossless</h4></li>
-                     Kompresi Lossless merupakan jenis kompresi yang tidak kehilangan data
-                </ul>
-            </p>
-            <h3>Apa itu huffman coding?</h3>
-            <p>            
-                
-            </p>
+           {{content.isi_content | safe}}
         </div>
     </div>
 {% endblock %}

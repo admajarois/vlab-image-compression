@@ -5,7 +5,7 @@ import json
 from flask_login import current_user
 
 
-from numpy.lib import imag, math
+from numpy.lib import math
 
 from .functions import histogram_generator, huffman_coding, image_compressor, byte_stream_generator
 
@@ -95,8 +95,7 @@ def grayscale_compression(image):
     gray_array = histogram_generator.pixel_frequency(list)
 
     gray_probability = histogram_generator.pixel_probability(gray_array, img_gray.shape[0]*img_gray.shape[1])
-
-    gray_huffman = huffman_coding.Huffman_Coding(gray_probability)
+    gray_huffman = huffman_coding.Huffman_Coding(gray_array)
     gray_codes, gray_reverse = gray_huffman.compress()
     gray_image_compressor = image_compressor.compressor(img_gray, gray_codes)
     gray_bit_stream = byte_stream_generator.gray_byte_stream(gray_image_compressor)
@@ -108,4 +107,5 @@ def grayscale_compression(image):
     with open(result+'/grayscale_bit_stream.txt', 'w') as fp:
         fp.write(gray_bit_stream)
     
-    return gray_bit_stream, compression_ratio, gray_reverse, gray_codes
+    
+    return gray_bit_stream, compression_ratio, gray_reverse, gray_codes, gray_array, gray_probability

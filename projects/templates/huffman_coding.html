@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div class="card shadow mt-5">
+    <div class="card-header"><h1 class="text-center"> {{content.judul}}</h1></div>
+    <div class="card-body">
+       {{content.isi_content | safe}}
+    </div>
+</div>
+{% endblock %}

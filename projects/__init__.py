@@ -8,7 +8,7 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 DB_NAME = "virtual_lab"
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), './static/uploads')
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'gif'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp'}
 MAX_CONTENT_LENGTH = 2*1000*1000
 
 def create_app():

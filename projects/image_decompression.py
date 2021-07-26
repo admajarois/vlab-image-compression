@@ -16,8 +16,6 @@ def image_decompression(image):
     
     pixel_stream = bit_stream_decoder.decoder(image, bit_stream, red_channel_decoder, green_channel_decoder, blue_channel_decoder)
 
-    # if os.path.exists(result) == False:
-    #     os.mkdir(result)
     
     with open(result+'/image_pixel_stream.txt', 'w') as fr:
         fr.write(str(pixel_stream))

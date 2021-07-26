@@ -51,17 +51,15 @@ def gray_restorer(image):
 
     gray_channel_image = np.reshape(gray_pixel_stream, (original_image.shape[0], original_image.shape[1]))
 
-    print(gray_channel_image)
+    cv2.imwrite('./projects/static/uploads/'+current_user.NIM+'/image_restore_gray.jpg', gray_channel_image)
 
+   
+    gray_channel_loss = original_image - gray_channel_image
+    gray_total_loss = np.sum(gray_channel_loss)
+    original_image_dimension = np.array(original_image).shape
+    result_image_dimension = np.array(gray_channel_image).shape
 
-
-    # print(len(gray_pixel_stream))
-
-    # print(merged)
-
-    
-    # image_reshape = np.reshape(gray_pixel_stream, (original_image[0], original_image[1], 3))
-    result_image = cv2.imwrite('./image_restore_gray.jpg', gray_channel_image)
+    return gray_total_loss, original_image_dimension, result_image_dimension
   
 
     

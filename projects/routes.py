@@ -23,14 +23,25 @@ def index():
 @login_required
 def materi():
     title = "Materi"
-    return render_template('materi.html', materi=materi,title=title, user=current_user)
+    content = Content.query.filter_by(id=6).first()
+    return render_template('materi.html', materi=materi,title=title, user=current_user, content=content)
 
 @views.route('/pendahuluan')
 @login_required
 def pendahuluan():
    judul = "Pendahuluan"
+   content = Content.query.filter_by(id_kategori=2).first()
 
-   return render_template('pendahuluan.html', title=judul, user=current_user )
+   return render_template('pendahuluan.html', title=judul, user=current_user, content=content )
+
+
+@views.route('/huffman_coding')
+@login_required
+def huffman_coding():
+    judul = "Huffman Coding"
+    content = Content.query.filter_by(id=7).first()
+
+    return render_template('huffman_coding.html', user=current_user, title=judul, content=content)
 
 @views.route('/profile/<NIM>', methods=['POST', 'GET'])
 @login_required
@@ -52,26 +63,6 @@ def profile(NIM):
         return redirect(request.url)
     return render_template('profile.html', user=current_user, title=title)
 
-@views.route('/datausers')
-@login_required
-def users():
-    title = "Data users"
-    data_user = Users.query.filter_by(role="MHS").all()
-    return render_template('user.html', title=title, user=current_user, data_user=data_user)
-
-@views.route('/delete_user/<NIM>')
-@login_required
-def delete_user(NIM):
-    user = Users.query.filter_by(NIM=NIM).first()
-    db.session.delete(user)
-    db.session.commit()
-    return redirect(url_for('views.users'))
-
-@views.route('/datagambar')
-@login_required
-def gambar():
-    title = "Data Gamabar"
-    return render_template('datagambar.html', title=title, user=current_user)
 
 @views.route('/penugasan', methods=['POST', 'GET'])
 @login_required
