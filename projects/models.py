@@ -28,6 +28,16 @@ class HistoryCompressi(db.Model):
     tanggal = db.Column(db.DateTime(timezone=True))
     users = db.relationship('Users')
 
+class ImageComparing(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    id_user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    original_image = db.Column(db.String(100))
+    compressed_image = db.Column(db.String(100))
+    rmse = db.Column(db.Float)
+    ssim = db.Column(db.Float)
+    tanggal = db.Column(db.DateTime(timezone=True))
+    users = db.relationship('Users')
+
 class Content(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_admin = db.Column(db.Integer)
@@ -49,7 +59,8 @@ class Assignment(db.Model):
     id_user = db.Column(db.Integer, db.ForeignKey('users.id'))
     file_name = db.Column(db.String(50))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
-    status = db.Column(db.Integer)
+    status = db.Column(db.Enum('Y','T', 'B'))
+    date_status = db.Column(db.DateTime(timezone=True))
     users = db.relationship('Users')
 
 class Image(db.Model):

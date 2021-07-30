@@ -20,3 +20,24 @@ const preview = ()=>{
         imgPreview.src = e.target.result;
     }
 }
+
+function previewImageOriginal() {
+    document.getElementById("image-preview-original").style.display = "block";
+    var oFReader = new FileReader();
+     oFReader.readAsDataURL(document.getElementById("original-image").files[0]);
+ 
+    oFReader.onload = function(oFREvent) {
+      document.getElementById("image-preview-original").src = oFREvent.target.result;
+    };
+};
+
+function previewImageCompress() {
+    document.getElementById("image-preview-compressed").style.display = "block";
+    var oFReader = new FileReader();
+     oFReader.readAsDataURL(document.getElementById("compressed-image").files[0]);
+ 
+    oFReader.onload = function(oFREvent) {
+      document.getElementById("image-preview-compressed").src = oFREvent.target.result;
+    };
+};
+

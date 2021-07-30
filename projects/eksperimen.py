@@ -53,7 +53,7 @@ def eksperimen():
            
             date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
          
-            bit_stream, ratio, rmse, relative_redudance = compress
+            bit_stream, ratio, relative_redudance = compress
             pixel_stream = decompress
             total_loss, original_image_dimension, restore_image_dimension = restorer
             end_times = time.time()
@@ -62,7 +62,7 @@ def eksperimen():
             db.session.add(add_history)
             db.session.commit()
             return render_template('eksperimen.html',times=round(times, 2),filename=filename, title="Program kompresi", app=app, bit=bit_stream, ratio=ratio, 
-            pixel=pixel_stream, user=current_user,rmse = rmse, redudance = relative_redudance, total_loss=total_loss, original_image_dimension=original_image_dimension, restore_image_dimension=restore_image_dimension, 
+            pixel=pixel_stream, user=current_user, redudance = relative_redudance, total_loss=total_loss, original_image_dimension=original_image_dimension, restore_image_dimension=restore_image_dimension, 
             images=images, code_pixel = gray_coded_pixel, gray_bit_stream = gray_bit_stream, gray_pixel = gray_pixel_stream, gray_array=gray_array, gray_probability=gray_probability, sum_of_freq=sum(gray_probability.values()),
             sum_of_prob = round(sum(gray_probability.values())), gray_ratio=round(gray_compresstion_ratio, 2), gray_redundance=round(gray_redundance,2),
             gray_channel_loss = gray_channel_loss, image_dimension=image_dimension, result_image_dimension = result_image_dimension)

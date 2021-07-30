@@ -19,17 +19,14 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">Profile picture</div>
-                <img src="{{url_for('static', filename='uploads/profile-picture.svg')}}" alt="profile image" class="card-img-top">
-                <div class="card-body center">
-                    <a href="#" class="btn btn-primary">Upload foto baru</a>
-                </div>
+               <img src="{{url_for('static', filename='uploads/profile-picture.svg')}}" alt="profile image" class="card-img-top">
             </div>
         </div>
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">Detail Akun</div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="POST" enctype="multipart/form-data">
                         <div class="from-group">
                             <label for="nim">NIM</label>
                             <input type="text" name="nim" id="nim" class="form-control" value="{{user.NIM}}" disabled>
@@ -39,8 +36,12 @@
                             <input type="text" name="nama" id="nama" class="form-control" value="{{user.nama}}">
                         </div>
                         <div class="form-group">
-                            <label for="prodi">Prodi</label>
-                            <input type="text" name="prodi" id="prodi" class="form-control" value="{{user.prodi}}">
+                            <label for="prodi">Kelas</label>
+                            <select name="kelas" id="kelas" class="form-control">
+                                {% for kelas in kelas %}
+                                    <option value="{{kelas.id}}" {{'selected' if kelas.id==user.id_kelas }}>{{kelas.kelas}}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -48,8 +49,9 @@
                         </div>
                         <div class="form-group">
                             <label for="Password">Password</label>
-                            <input type="text" name="password" id="password" class="form-control" value="{{'********' if user.password}}">
+                            <input type="password" name="password" id="password" class="form-control" value="{{user.password}}">
                         </div>
+                  
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
                 </div>

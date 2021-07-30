@@ -20,6 +20,42 @@
                       </div>
                 </form>
             </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable">
+                    <thead>
+                        <th>ID</th>
+                        <th>Tugas</th>
+                        <th>Status</th>
+                        <th>Tanggal Pengumpulan</th>
+                        <th>Tanggal Terkonfirmasi</th>
+                    </thead>
+                    <tbody>
+                        {% for tug in tugas%}
+                            <tr>
+                                <td>{{tug.id}}</td>
+                                <td>{{tug.file_name}}</td>
+                                <td>
+                                    {% if tug.status == 'Y' %}
+                                    <button disabled="disabled" class="btn btn-success">Disetujui</button>
+                                    {% elif tug.status == 'T' %}
+                                    <button disabled="disabled" class="btn btn-danger">Ditolak</button>
+                                    {% else %}
+                                    <p>Belum dikonfirmasi</p>
+                                    {% endif %}
+                                </td>
+                                <td>{{tug.date}}</td>
+                                <td>
+                                    {% if tug.date_status is none %}
+                                    <p>Belum dikonfirmasi</p>
+                                    {% else %}
+                                    {{tug.date_status}}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}

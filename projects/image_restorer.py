@@ -1,3 +1,4 @@
+from projects import UPLOAD_FOLDER
 import cv2
 import numpy as np
 import os
@@ -26,6 +27,10 @@ def restorer(image):
     green_channel_image = np.reshape(green_channel_pixel_stream, (original_image.shape[0], original_image.shape[1]))
     blue_channel_image = np.reshape(blue_channel_pixel_stream, (original_image.shape[0], original_image.shape[1]))
 
+    merged_image = cv2.merge([blue_channel_image, green_channel_image, red_channel_image])
+
+    cv2.imwrite(UPLOAD_FOLDER+'/'+current_user.NIM+'/' +current_user.NIM+'_restorer.jpg', merged_image)
+
     red_channel_loss = original_image[:,:,0] - red_channel_image
     green_channel_loss = original_image[:,:,1] - green_channel_image
     blue_channel_loss = original_image[:,:,2] - blue_channel_image
@@ -51,8 +56,7 @@ def gray_restorer(image):
 
     gray_channel_image = np.reshape(gray_pixel_stream, (original_image.shape[0], original_image.shape[1]))
 
-    cv2.imwrite('./projects/static/uploads/'+current_user.NIM+'/image_restore_gray.jpg', gray_channel_image)
-
+    cv2.imwrite(UPLOAD_FOLDER+'/'+current_user.NIM+'/img_restorer_gray.jpg', gray_channel_image)
    
     gray_channel_loss = original_image - gray_channel_image
     gray_total_loss = np.sum(gray_channel_loss)

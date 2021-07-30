@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div class="mb-4">
+    <h1 class="text-center">Perbandingan Gambar Original Dan Hasil Kompresi</h1>
+    <p class="h6">
+        Ini adalah halaman perbandingan untuk membandingkan citra original dengan citra hasil kompresi
+        hal ini dilakukan untuk mengetahui apakah terdapat perubahan pada citra hasil kompresi. perbandingan ini akan
+        menghasilkan <b>Root Mean Square Error</b>. perbandingan ini menggunakan <b>Structural Similarity Measure</b>
+    </p>    
+    <div class="row">
+        <div class="col-lg-6">
+            <img src="{{url_for('static', filename='img/default-image.jpg')}}" class="img-thumbnail" alt="image satu" id="image-preview-original" width="100%">
+        </div>
+        <div class="col-lg-6">
+            <img src="{{url_for('static', filename='img/default-image.jpg')}}" class="img-thumbnail" alt="image dua" id="image-preview-compressed" width="100%">
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="original_image">Masukkan Gambar Asli</label>
+                    <input type="file" class="form-control-file " name="original_image" id="original-image" onchange="previewImageOriginal()">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group"> 
+                    <label for="compressed_image">Masukkan Gambar Hasil Kompresi</label>
+                    <input type="file" class="form-control-file input" name="compressed_image" id="compressed-image" onchange="previewImageCompress()">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">PROCESS</button>
+    </form>
+</div>
+{% if original is not none %}
+    {% if compressed is not none%}
+        <div class="card shadow mb-4">
+            <div class="card-header"><h5 class="text-center">Hasil Perbandingan Gambar</h5></div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                              <img src="{{url_for('static', filename='uploads/'+user.NIM+'/'+original)}}" width="300" height="200">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                              <img src="{{url_for('static', filename='uploads/'+user.NIM+'/'+compressed)}}" width="300" height="200">
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td>Root Mean Square Error</td>
+                                <td>:</td>
+                                <td>{{rmse}}</td>
+                            </tr>
+                            <tr>
+                                <td>Structural Similarity Measure</td>
+                                <td>:</td>
+                                <td>{{ssim}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%endif%}
+{%endif%}
+{% endblock %}

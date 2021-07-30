@@ -74,7 +74,6 @@ def image_compression(image):
     
     compression_rasio = round((100/100-(len(bit_stream)/(img.shape[0]*img.shape[1]*img.shape[2]*8))*100/100)*100, 2)
     relative_redundance = round((1 - (1/compression_rasio))*100, 2)
-    rmse = math.sqrt(1/img.shape[0]*img.shape[1]*(len(bit_stream)-img.size)**2)
 
     if os.path.exists(result) == False:
         os.mkdir(result)
@@ -82,7 +81,7 @@ def image_compression(image):
     with open(result+'/bit_stream.txt', 'w') as fp:
         fp.write(bit_stream)
 
-    return bit_stream, compression_rasio, rmse, relative_redundance
+    return bit_stream, compression_rasio, relative_redundance
 
 def grayscale_compression(image):
     img_gray = cv2.imread(image)
