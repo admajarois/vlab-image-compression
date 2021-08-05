@@ -6,7 +6,7 @@ from flask_login import current_user
 
 from projects.functions import channel_restorer
 
-def restorer(image):
+def restorer(image, filename):
     result = os.path.join("projects/results", current_user.NIM)
     with open(result+'/image_pixel_stream.txt', 'r') as fr:
         pixel_stream = fr.read()
@@ -29,7 +29,7 @@ def restorer(image):
 
     merged_image = cv2.merge([blue_channel_image, green_channel_image, red_channel_image])
 
-    cv2.imwrite(UPLOAD_FOLDER+'/'+current_user.NIM+'/' +current_user.NIM+'_restorer.jpg', merged_image)
+    cv2.imwrite(UPLOAD_FOLDER+'/'+current_user.NIM+'/' +'restored_'+filename, merged_image)
 
     red_channel_loss = original_image[:,:,0] - red_channel_image
     green_channel_loss = original_image[:,:,1] - green_channel_image

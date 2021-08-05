@@ -18,19 +18,9 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@vlab.route('/eksperimen', methods=['GET', 'POST'])
+@vlab.route('/eksperimen_rgb', methods=['GET', 'POST'])
 @login_required
-def eksperimen():
-    images = Image.query.filter_by(id=4).first()
-    filename = secure_filename(images.image)
-    app = os.path.join(UPLOAD_FOLDER, filename)
-    compress = image_compression.grayscale_compression(app)
-    gray_bit_stream, gray_compresstion_ratio, reversed_coded_gray, gray_coded_pixel, gray_array, gray_probability = compress
-    decompress = image_decompression.gray_decompression(app, gray_bit_stream, reversed_coded_gray)
-    gray_restorer = image_restorer.gray_restorer(app)
-    gray_channel_loss, image_dimension, result_image_dimension = gray_restorer
-    gray_pixel_stream = decompress
-    gray_redundance = (1-1/gray_compresstion_ratio)*100
+def eksperimen_rgb():
     if request.method == 'POST':
         if 'image' not in request.files:
             flash('Tidak ada file untuk diproses', category='error')
@@ -49,7 +39,7 @@ def eksperimen():
             app = os.path.join(user_file, filename)
             compress = image_compression.image_compression(app)
             decompress = image_decompression.image_decompression(app)
-            restorer = image_restorer.restorer(app)
+            restorer = image_restorer.restorer(app,filename)
            
             date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
          
@@ -61,12 +51,30 @@ def eksperimen():
             add_history = HistoryCompressi(id_user=current_user.id, nama_gambar=filename, tinggi = original_image_dimension[0], lebar = original_image_dimension[1], channel = original_image_dimension[2], rasio_kompresi=ratio, relative_redudancy=relative_redudance, tanggal=date)
             db.session.add(add_history)
             db.session.commit()
-            return render_template('eksperimen.html',times=round(times, 2),filename=filename, title="Program kompresi", app=app, bit=bit_stream, ratio=ratio, 
-            pixel=pixel_stream, user=current_user, redudance = relative_redudance, total_loss=total_loss, original_image_dimension=original_image_dimension, restore_image_dimension=restore_image_dimension, 
-            images=images, code_pixel = gray_coded_pixel, gray_bit_stream = gray_bit_stream, gray_pixel = gray_pixel_stream, gray_array=gray_array, gray_probability=gray_probability, sum_of_freq=sum(gray_probability.values()),
-            sum_of_prob = round(sum(gray_probability.values())), gray_ratio=round(gray_compresstion_ratio, 2), gray_redundance=round(gray_redundance,2),
-            gray_channel_loss = gray_channel_loss, image_dimension=image_dimension, result_image_dimension = result_image_dimension)
+            return render_template('experiment_rgb.html',times=round(times, 2),filename=filename, title="Program kompresi", app=app, bit=bit_stream, ratio=ratio, 
+            pixel=pixel_stream, user=current_user, redudance = relative_redudance, total_loss=total_loss, original_image_dimension=original_image_dimension, restore_image_dimension=restore_image_dimension)
     
-    return render_template('eksperimen.html',title="Program Kompresi", user=current_user, images=images, gray_bit_stream = gray_bit_stream, gray_ratio=round(gray_compresstion_ratio, 2),
-        gray_pixel=gray_pixel_stream, code_pixel = gray_coded_pixel, gray_array=gray_array, gray_probability=gray_probability, sum_of_freq=sum(gray_array.values()),
-            sum_of_prob = round(sum(gray_probability.values())), gray_redundance=round(gray_redundance,2), gray_channel_loss = gray_channel_loss, image_dimension=image_dimension, result_image_dimension = result_image_dimension)
+    return render_template('experiment_rgb.html',title="Program Kompresi", user=current_user)
+        
+
+@vlab.route('/eksperimen_citra6x6')
+@login_required
+def eksperimen_citra6x6():
+    title = "Kompresi Citra 6x6"
+    images = Image.query.filter_by(id=4).first()
+    filename = secure_filename(images.image)
+    app = os.path.join(UPLOAD_FOLDER, filename)
+    compress = image_compression.grayscale_compression(app)
+    gray_bit_stream, gray_compresstion_ratio, reversed_coded_gray, gray_coded_pixel, gray_array, gray_probability = compress
+    decompress = image_decompression.gray_decompression(app, gray_bit_stream, reversed_coded_gray)
+    gray_restorer = image_restorer.gray_restorer(app)
+    gray_channel_loss, image_dimension, result_image_dimension = gray_restorer
+    gray_pixel_stream = decompress
+    gray_redundance = (1-1/gray_compresstion_ratio)*100
+    sum_of_prob = round(sum(gray_probability.values()))
+    sum_of_freq = round(sum(gray_array.values()))
+
+    return render_template('experiment_6x6.html', title=title, images = images, user=current_user, gray_ratio = round(gray_compresstion_ratio,2),
+    image_dimension=image_dimension,gray_redundance=round(gray_redundance,2), gray_array=gray_array, sum_of_freq=sum_of_freq, sum_of_prob=sum_of_prob,
+    gray_channel_loss = gray_channel_loss, result_image_dimension = result_image_dimension, gray_pixel = gray_pixel_stream,
+    code_pixel = gray_coded_pixel, gray_probability=gray_probability)

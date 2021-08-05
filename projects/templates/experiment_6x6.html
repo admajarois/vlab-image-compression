@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+<div class="card mb-4">
+    <div class="card-header"><h1>Percobaan Citra 6x6</h1></div>
+    <div class="card-body">
     <p>Berikut merupakan contoh kompresi gambar grayscale 8 bit dengan dimensi 6 x 6 pixel.</p>
     <div class="card shadow">
         <div class="row no-gutters">
@@ -175,57 +181,61 @@
         </div>
     </div>
 </div>
-    <p>lalu hasil docode direstore dengan perintah imwrite() sehingga gambar kembali terbentuk seperti semula</p> 
-<div class="card shadow mt-2">
-    <div class="row no-gutters">
-        <div class="col">
-            <img src="{{url_for('static', filename='uploads/'+images.image)}}" alt="image from database" class="img-thumbnail" width="100%" onclick="showImageBellow(this)">
-        </div>
-        <div class="col">
-            <div class="card-body">
-                <h5 class="card-title text-center h4">Contoh Hasil Restorasi Gambar {{image_dimension | replace(',', 'x')}} pixel</h5>
-                <table class="table table-borderless">
-                    <tbody>
-                        <tr>
-                            <td> <p class="card-text h5">Nama Gambar</p></td>
-                            <td> <p class="card-text h5">:</p></td>
-                            <td> <p class="card-text h5">{{images.image}}</p></td>
-                        </tr>
-                        <tr>
-                            <td><p class="card-text h5">Dimensi gambar original</p></td>
-                            <td><p class="card-text h5">:</p></td>
-                            <td><p class="card-text h5">{{image_dimension  |replace(',', 'x')}} pixel</p></td>
-                        </tr>
-                        <tr>
-                            <td><p class="card-text h5">Dimensi gambar restorasi</p></td>
-                            <td><p class="card-text h5">:</p></td>
-                            <td><p class="card-text h5">{{result_image_dimension |replace(',', 'x')}} pixel</p></td>
-                        </tr>
-                        <tr>
-                            <td><p class="card-tetx h5">Total loss</p></td>
-                            <td><p class="card-tetx h5">: </p></td>
-                            <td><p class="card-tetx h5">{{gray_channel_loss}}</p></td>
-                        </tr>
-                    </tbody>
-                </table>                    
+        <p>lalu hasil docode direstore dengan perintah imwrite() sehingga gambar kembali terbentuk seperti semula</p> 
+        <div class="card shadow mt-2">
+            <div class="row no-gutters">
+                <div class="col">
+                    <img src="{{url_for('static', filename='uploads/'+images.image)}}" alt="image from database" class="img-thumbnail" width="100%" onclick="showImageBellow(this)">
+                </div>
+                <div class="col">
+                    <div class="card-body">
+                        <h5 class="card-title text-center h4">Contoh Hasil Restorasi Gambar {{image_dimension | replace(',', 'x')}} pixel</h5>
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td> <p class="card-text h5">Nama Gambar</p></td>
+                                        <td> <p class="card-text h5">:</p></td>
+                                        <td> <p class="card-text h5">{{images.image}}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p class="card-text h5">Dimensi gambar original</p></td>
+                                        <td><p class="card-text h5">:</p></td>
+                                        <td><p class="card-text h5">{{image_dimension  |replace(',', 'x')}} pixel</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p class="card-text h5">Dimensi gambar restorasi</p></td>
+                                        <td><p class="card-text h5">:</p></td>
+                                        <td><p class="card-text h5">{{result_image_dimension |replace(',', 'x')}} pixel</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p class="card-tetx h5">Total loss</p></td>
+                                        <td><p class="card-tetx h5">: </p></td>
+                                        <td><p class="card-tetx h5">{{gray_channel_loss}}</p></td>
+                                    </tr>
+                                </tbody>
+                            </table>                    
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
 </div>
 
 
 <div class="modal fade" id="showHuffmanTree" tabindex="-1" role="dialog" aria-labelledby="showHuffmanTree" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalScrollableTitle">Huffman Tree</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Huffman Tree</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="{{url_for('static', filename='img/huffman_tree.jpg')}}" alt="">
+            </div>
         </div>
-        <div class="modal-body">
-            <img src="{{url_for('static', filename='img/huffman_tree.jpg')}}" alt="">
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+
+  {% endblock %}
